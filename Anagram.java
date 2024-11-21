@@ -32,16 +32,24 @@ public class Anagram {
 	public static boolean isAnagram(String str1, String str2) {
 		str1 = preProcess(str1);
 		str2 = preProcess(str2);
-		if (str1.length() != str2.length()) {return false;}
-
+		String str1new = "";
+		String str2new = "";
 		for (char c : str1.toCharArray()) {
-			if (str2.indexOf(c) != -1) { 
-				if (str2.indexOf(c) == 0) {str2 = str2.substring(1);}
-				else {str2 = str2.substring(0, str2.indexOf(c)) + str2.substring(str2.indexOf(c)+1);}
+			if (Character.isLetter(c)) {str1new += c;}
+		}
+		for (char c : str2.toCharArray()) {
+			if (Character.isLetter(c)) {str2new += c;}
+		}
+		if (str1new.length() != str2new.length()) {return false;}
+
+		for (char c : str1new.toCharArray()) {
+			if (str2new.indexOf(c) != -1) { 
+				if (str2new.indexOf(c) == 0) {str2new = str2new.substring(1);}
+				else {str2new = str2new.substring(0, str2new.indexOf(c)) + str2new.substring(str2new.indexOf(c)+1);}
 			}
 			else break;
 		}
-		if (str2.equals("")) { return true;}
+		if (str2new.equals("")) { return true;}
 		else {return false;}
 	}
 	   
@@ -52,7 +60,7 @@ public class Anagram {
 		str = str.toLowerCase();
 		String newString = "";
 		for (char c : str.toCharArray()) {
-			if (Character.isLetter(c)) {newString += c;}
+			if (Character.isLetter(c) || (c == ' ')) {newString += c;}
 		}
 		return newString;
 	} 
